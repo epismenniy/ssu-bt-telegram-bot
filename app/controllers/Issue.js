@@ -21,13 +21,12 @@ class IssueController extends Telegram.TelegramBaseController {
         //bug
         $.runForm(Form, (result) => {
 
-            //console.log(result);
-
-            let urlGetFile = 'https://api.telegram.org/app' + TOKEN + '/getFile?file_id=';
-            urlGetFile += result.file_id;
+            let urlGetFile = 'https://api.telegram.org/bot' + TOKEN + '/getFile?file_id=';
 
             if(Array.isArray(result.file_id)) {
                 urlGetFile += result.file_id[0];
+            } else {
+                urlGetFile += result.file_id;
             }
 
             request({
@@ -49,8 +48,6 @@ class IssueController extends Telegram.TelegramBaseController {
                     result.file_name = file_name_id + file_extension;
                     result.bugId = file_name_id;
 
-                    //console.log(result);
-
                     let download_url = 'https://api.telegram.org/file/app' + TOKEN + '/photos//' + file_name  + file_extension;
 
                     //check: is file_id an array
@@ -71,19 +68,21 @@ class IssueController extends Telegram.TelegramBaseController {
 
                         caption : caption,
 
-                        description : result.description,
+                        description : result.description[0],
 
-                        coordinates : [result.data[0], result.data[1] ],
+                        //coordinates : [result.data[0], result.data[1] ],
 
-                        user : result.data[2],
+                        user : result.description[1],
 
-                        date : result.data[3]
+                        date : result.description[2]
                     });
 
                     Bug.createBug(newBug, function (err, bug) {
                         if(err)  {
+
+                            console.log(err + ' created bug error');
                             errorMessage();
-                            console.log(err);
+
                         } else {
                             //todo: show success message
 
@@ -100,8 +99,9 @@ class IssueController extends Telegram.TelegramBaseController {
 
                             $.sendMessage(`Ваш баг №${result.bugId} був успішно відправлений! \n`, options);
 
+                        //TODO: post request to save picture
                             // Post request to clientside server to download pic to static folder
-                            request.post(
+/*                            request.post(
                                 UPLOAD_URL,
                                 { json: { src: download_url, filename: result.file_name} },
                                 function (error, response, body) {
@@ -111,7 +111,7 @@ class IssueController extends Telegram.TelegramBaseController {
                                         errorMessage();
                                     }
                                 }
-                            );
+                            );*/
                         }
                     })
 

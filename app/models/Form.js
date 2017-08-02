@@ -2,7 +2,15 @@
  * Created by epismenniy on 01.08.2017.
  */
 
-const PHOTO_SIZE_ID = 3;
+const locationsObj = require("../catalogs/locations");
+const roomsObj = require("../catalogs/rooms");
+
+let locKeys = [];
+let locRooms = [];
+
+locationsObj.forEach(function (item, i, locationsObj) {
+    locKeys.push([{text: item}]);
+});
 
 const form = {
 
@@ -15,20 +23,16 @@ const form = {
                 return // return without running callback
             }
 
-            //console.log(message.photo);
-            //return
-
-            //console.log(message.document);
             if(message.photo) {
-                //console.log(message.photo)
-                // console.log(message.photo[0]._fileId);
                 let photoInfo =  null;
+                let PHOTO_SIZE_ID = message.photo.length - 1;
+
                 if(message.caption !== null ) {
                     photoInfo = [];
-                    photoInfo.push(message.photo[PHOTO_SIZE_ID]._fileId)
+                    photoInfo.push(message.photo[PHOTO_SIZE_ID]._fileId);
                     photoInfo.push(message.caption);
                 } else {
-                    photoInfo = message.photo[PHOTO_SIZE_ID]._fileId
+                    photoInfo = message.photo[PHOTO_SIZE_ID]._fileId;
                 }
 
                 callback(true, photoInfo) //you must pass the result also
@@ -42,29 +46,8 @@ const form = {
         }
     },
 
-    description: {
-        q: 'Опишіть баг',
-        error: 'Вибачте, помилка введення',
-        keyboard: [
-            [{ text: 'Soltero'}],
-            [{ text: 'Casado' }],
-            [{ text: 'Divorciado' }],
-        ],
-        validator: (message, callback) => {
 
-            if (message.text && message.text === '/stop') {
-                return // return without running callback
-            }
-
-            if(message.text) {
-                //console.log(message.text);
-                callback(true, message.text)
-                return
-            }
-            callback(false)
-        }
-    },
-    data: {
+/*    data: {
         q: 'Відправте місцезнаходження багу',
         error: 'Вибачте, помилка введення',
         validator: (message, callback) => {
@@ -88,7 +71,91 @@ const form = {
             }
             callback(false)
         }
+    },*/
+
+    location: {
+        q: 'Відправте корпус багу',
+        error: 'Помилка введення',
+        keyboard: locKeys,
+        validator: (message, callback) => {
+
+            if (message.text && message.text === '/stop') {
+                return // return without running callback
+            }
+
+            if(message.text) {
+                //console.log(message.text);
+
+                let location = roomsObj.locations[message.text];
+
+                if(typeof(location) === "undefined"){
+                    callback(false)
+                }else{
+                   // console.log(location);
+                    callback(true, location)
+                }
+
+                return
+            }
+            callback(false)
+        }
     },
+
+
+    room: {
+        q: 'Виберіть аудиторію або точнішу локацію',
+        error: 'Помилка введення',
+        keyboard: null,
+        validator: (message, callback) => {
+
+            if (message.text && message.text === '/stop') {
+                return // return without running callback
+            }
+
+            if(message.text) {
+
+                let room = message.text;
+
+                if(locRooms.includes(room)) {
+
+                    console.log(room);
+                    callback(true, location)
+                }
+
+                return
+            }
+
+            callback(false)
+        }
+    },
+
+    description: {
+        q: 'Опишіть баг',
+        error: 'Вибачте, помилка введення',
+
+        validator: (message, callback) => {
+
+            if (message.text && message.text === '/stop') {
+                return // return without running callback
+            }
+
+            if(message.text) {
+                //console.log(message.text);
+
+                let description = [];
+
+                description.push(message.text);
+                description.push(message.from);
+                description.push(message.date);
+
+                callback(true, description)
+                return
+            }
+            callback(false)
+        }
+    },
+
+
 }
 
 module.exports = form;

@@ -30,9 +30,11 @@ let BugSchema = mongoose.Schema({
         type: String
     },
 
+/*
     coordinates: {
         type: Array
     },
+*/
 
     user: {
         type: Object
