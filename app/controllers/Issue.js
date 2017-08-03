@@ -1,7 +1,6 @@
 /**
  * Created by epismenniy on 01.08.2017.
  */
-const fs = require('fs');
 const request = require("request");
 
 
@@ -20,6 +19,8 @@ class IssueController extends Telegram.TelegramBaseController {
 
         //bug
         $.runForm(Form, (result) => {
+
+            console.log(result);
 
             let urlGetFile = 'https://api.telegram.org/bot' + TOKEN + '/getFile?file_id=';
 
@@ -53,14 +54,29 @@ class IssueController extends Telegram.TelegramBaseController {
                     //check: is file_id an array
                     let caption = null;
                     let file_id = result.file_id;
+
                     if(Array.isArray(result.file_id)) {
                         file_id = result.file_id[0];
                         caption = result.file_id[1]
                     }
 
+                    let locationObj = {
+
+                        building : result.building,
+                        room : result.room
+                    }
+
                     let newBug = new Bug({
 
                         bugId: result.bugId,
+
+                        author : result.description[1],
+
+                        date : result.description[2],
+
+                        location : locationObj,
+
+                        description : result.description[0],
 
                         file_name: result.file_name,
 
@@ -68,13 +84,8 @@ class IssueController extends Telegram.TelegramBaseController {
 
                         caption : caption,
 
-                        description : result.description[0],
+                        status : "new"
 
-                        //coordinates : [result.data[0], result.data[1] ],
-
-                        user : result.description[1],
-
-                        date : result.description[2]
                     });
 
                     Bug.createBug(newBug, function (err, bug) {

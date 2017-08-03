@@ -3,14 +3,16 @@
  */
 
 const locationsObj = require("../catalogs/locations");
-const roomsObj = require("../catalogs/rooms");
 
-let locKeys = [];
-let locRooms = [];
+let locationsArray = Object.keys(locationsObj.locations);
+let locationKeyboards = [];
+let roomKeyboards = [];
+let currentLocation = null;
 
-locationsObj.forEach(function (item, i, locationsObj) {
-    locKeys.push([{text: item}]);
+locationsArray.forEach(function (item, i, locationsArray) {
+    locationKeyboards.push([{text: item}]);
 });
+
 
 const form = {
 
@@ -73,26 +75,29 @@ const form = {
         }
     },*/
 
-    location: {
+    building: {
         q: 'Відправте корпус багу',
         error: 'Помилка введення',
-        keyboard: locKeys,
+        keyboard: locationKeyboards,
         validator: (message, callback) => {
 
             if (message.text && message.text === '/stop') {
                 return // return without running callback
             }
-
             if(message.text) {
-                //console.log(message.text);
 
-                let location = roomsObj.locations[message.text];
+                let location = locationsObj.locations[message.text];
 
                 if(typeof(location) === "undefined"){
                     callback(false)
                 }else{
-                   // console.log(location);
-                    callback(true, location)
+
+                    location.forEach(function (item, i, location) {
+                        roomKeyboards.push([{text: item}]);
+                    });
+
+                    currentLocation = message.text;
+                    callback(true, currentLocation)
                 }
 
                 return
@@ -105,21 +110,24 @@ const form = {
     room: {
         q: 'Виберіть аудиторію або точнішу локацію',
         error: 'Помилка введення',
-        keyboard: null,
+        keyboard: roomKeyboards,
         validator: (message, callback) => {
 
-            if (message.text && message.text === '/stop') {
+            let room = message.text;
+
+            if (room && room === '/stop') {
                 return // return without running callback
             }
 
-            if(message.text) {
+            if(room) {
 
-                let room = message.text;
+                if(locationsObj["locations"].hasOwnProperty(currentLocation)) {
 
-                if(locRooms.includes(room)) {
+                    callback(true, room)
 
-                    console.log(room);
-                    callback(true, location)
+                } else {
+                    console.log("hasn't own property")
+                    callback(false)
                 }
 
                 return
@@ -130,7 +138,7 @@ const form = {
     },
 
     description: {
-        q: 'Опишіть баг',
+        q: 'Детальний опис проблеми',
         error: 'Вибачте, помилка введення',
 
         validator: (message, callback) => {

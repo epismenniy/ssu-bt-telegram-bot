@@ -14,6 +14,22 @@ let BugSchema = mongoose.Schema({
         type: String
     },
 
+    author: {
+        type: Object
+    },
+
+    date: {
+        type: String
+    },
+
+    location: {
+        type: Object
+    },
+
+    description: {
+        type: String
+    },
+
     file_name: {
         type: String
     },
@@ -26,21 +42,7 @@ let BugSchema = mongoose.Schema({
         type: String
     },
 
-    description: {
-        type: String
-    },
-
-/*
-    coordinates: {
-        type: Array
-    },
-*/
-
-    user: {
-        type: Object
-    },
-
-    date: {
+    status: {
         type: String
     }
 
