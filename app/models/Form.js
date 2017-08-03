@@ -3,16 +3,14 @@
  */
 
 const locationsObj = require("../catalogs/locations");
+const fileHelper = require('../helpers/FileHelper');
 
 let locationsArray = Object.keys(locationsObj.locations);
 let locationKeyboards = [];
 let roomKeyboards = [];
 let currentLocation = null;
 
-locationsArray.forEach(function (item, i, locationsArray) {
-    locationKeyboards.push([{text: item}]);
-});
-
+fileHelper.keyboardFormat(locationsArray, locationKeyboards);
 
 const form = {
 
@@ -48,33 +46,6 @@ const form = {
         }
     },
 
-
-/*    data: {
-        q: 'Відправте місцезнаходження багу',
-        error: 'Вибачте, помилка введення',
-        validator: (message, callback) => {
-
-            if (message.text && message.text === '/stop') {
-                return // return without running callback
-            }
-
-            if(message.location) {
-
-                let coord = [];
-                let lat = message.location.latitude;
-                let long = message.location.longitude;
-                coord.push(lat);
-                coord.push(long);
-                coord.push(message.from);
-                coord.push(message.date);
-
-                callback(true, coord)
-                return
-            }
-            callback(false)
-        }
-    },*/
-
     building: {
         q: 'Відправте корпус багу',
         error: 'Помилка введення',
@@ -92,9 +63,7 @@ const form = {
                     callback(false)
                 }else{
 
-                    location.forEach(function (item, i, location) {
-                        roomKeyboards.push([{text: item}]);
-                    });
+                    fileHelper.keyboardFormat(location, roomKeyboards);
 
                     currentLocation = message.text;
                     callback(true, currentLocation)

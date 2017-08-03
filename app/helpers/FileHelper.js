@@ -10,14 +10,20 @@ const FileHelper = {
     },
 
     //generate random 4-letter word
-    getRandText: function(number)
-    {
+    getRandText: function(number) {
         var text = "";
         var charset = "abcdefghijklmnopqrstuvwxyz";
         for( var i=0; i < number; i++ )
             text += charset.charAt(Math.floor(Math.random() * charset.length));
 
         return text.toUpperCase();
+    },
+    
+    //generate keyboard-format array
+    keyboardFormat : function (arr, keyboardArray) {
+        arr.forEach(function (item, i, arr) {
+            keyboardArray.push([{text: item}]);
+        });
     }
 }
 

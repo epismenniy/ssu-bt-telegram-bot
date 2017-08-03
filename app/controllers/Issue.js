@@ -20,8 +20,6 @@ class IssueController extends Telegram.TelegramBaseController {
         //bug
         $.runForm(Form, (result) => {
 
-            console.log(result);
-
             let urlGetFile = 'https://api.telegram.org/bot' + TOKEN + '/getFile?file_id=';
 
             if(Array.isArray(result.file_id)) {
