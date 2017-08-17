@@ -47,7 +47,7 @@ class IssueController extends Telegram.TelegramBaseController {
                     result.file_name = file_name_id + file_extension;
                     result.bugId = file_name_id;
 
-                    let download_url = 'https://api.telegram.org/file/app' + TOKEN + '/photos//' + file_name  + file_extension;
+                    let download_url = 'https://api.telegram.org/file/bot' + TOKEN + '/photos//' + file_name  + file_extension;
 
                     //check: is file_id an array
                     let caption = null;
@@ -108,9 +108,9 @@ class IssueController extends Telegram.TelegramBaseController {
 
                             $.sendMessage(`Ваш баг №${result.bugId} був успішно відправлений! \n`, options);
 
-                        //TODO: post request to save picture
+
                             // Post request to clientside server to download pic to static folder
-/*                            request.post(
+                            request.post(
                                 UPLOAD_URL,
                                 { json: { src: download_url, filename: result.file_name} },
                                 function (error, response, body) {
@@ -120,7 +120,7 @@ class IssueController extends Telegram.TelegramBaseController {
                                         errorMessage();
                                     }
                                 }
-                            );*/
+                            );
                         }
                     })
 

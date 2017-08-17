@@ -23,11 +23,11 @@ const form = {
                 return // return without running callback
             }
 
-            if(message.photo) {
-                let photoInfo =  null;
+            if (message.photo) {
+                let photoInfo = null;
                 let PHOTO_SIZE_ID = message.photo.length - 1;
 
-                if(message.caption !== null ) {
+                if (message.caption !== null) {
                     photoInfo = [];
                     photoInfo.push(message.photo[PHOTO_SIZE_ID]._fileId);
                     photoInfo.push(message.caption);
@@ -37,7 +37,7 @@ const form = {
 
                 callback(true, photoInfo) //you must pass the result also
                 return
-            } else if(message.document && message.document._thumb !== null){
+            } else if (message.document && message.document._thumb !== null) {
                 //console.log(message.document);
                 callback(true, message.document._fileName) //you must pass the result also
                 return
@@ -47,7 +47,7 @@ const form = {
     },
 
     building: {
-        q: 'Відправте корпус багу',
+        q: 'Оберіть корпус багу',
         error: 'Помилка введення',
         keyboard: locationKeyboards,
         validator: (message, callback) => {
@@ -55,13 +55,13 @@ const form = {
             if (message.text && message.text === '/stop') {
                 return // return without running callback
             }
-            if(message.text) {
+            if (message.text) {
 
                 let location = locationsObj.locations[message.text];
 
-                if(typeof(location) === "undefined"){
+                if (typeof(location) === "undefined") {
                     callback(false)
-                }else{
+                } else {
 
                     fileHelper.keyboardFormat(location, roomKeyboards);
 
@@ -77,7 +77,7 @@ const form = {
 
 
     room: {
-        q: 'Виберіть аудиторію або точнішу локацію',
+        q: 'Оберіть аудиторію або точнішу локацію',
         error: 'Помилка введення',
         keyboard: roomKeyboards,
         validator: (message, callback) => {
@@ -88,9 +88,9 @@ const form = {
                 return // return without running callback
             }
 
-            if(room) {
+            if (room) {
 
-                if(locationsObj["locations"].hasOwnProperty(currentLocation)) {
+                if (locationsObj["locations"].hasOwnProperty(currentLocation)) {
 
                     callback(true, room)
 
@@ -107,7 +107,7 @@ const form = {
     },
 
     description: {
-        q: 'Детальний опис проблеми',
+        q: 'Введіть опис проблеми',
         error: 'Вибачте, помилка введення',
 
         validator: (message, callback) => {
@@ -116,7 +116,7 @@ const form = {
                 return // return without running callback
             }
 
-            if(message.text) {
+            if (message.text) {
                 //console.log(message.text);
 
                 let description = [];
