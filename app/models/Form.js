@@ -47,7 +47,7 @@ const form = {
     },
 
     building: {
-        q: 'Оберіть корпус багу',
+        q: 'Оберіть корпус',
         error: 'Помилка введення',
         keyboard: locationKeyboards,
         validator: (message, callback) => {
@@ -77,7 +77,7 @@ const form = {
 
 
     room: {
-        q: 'Оберіть аудиторію або точнішу локацію',
+        q: 'Оберіть аудиторію',
         error: 'Помилка введення',
         keyboard: roomKeyboards,
         validator: (message, callback) => {
@@ -91,7 +91,6 @@ const form = {
             if (room) {
 
                 if (locationsObj["locations"].hasOwnProperty(currentLocation)) {
-
                     callback(true, room)
 
                 } else {
@@ -107,7 +106,7 @@ const form = {
     },
 
     description: {
-        q: 'Введіть опис проблеми',
+        q: 'Опишіть проблему',
         error: 'Вибачте, помилка введення',
 
         validator: (message, callback) => {

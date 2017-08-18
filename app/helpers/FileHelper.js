@@ -21,10 +21,15 @@ const FileHelper = {
     
     //generate keyboard-format array
     keyboardFormat : function (arr, keyboardArray) {
+
+        if(keyboardArray.length > 0) {
+            keyboardArray.length = 0;
+        }
         arr.forEach(function (item, i, arr) {
             keyboardArray.push([{text: item}]);
-        });
-    }
+        })
+    },
+
 }
 
 module.exports = FileHelper;
