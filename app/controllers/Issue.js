@@ -93,20 +93,16 @@ class IssueController extends Telegram.TelegramBaseController {
                             errorMessage();
 
                         } else {
-                            //todo: show success message
 
                             let options = {
                                 reply_markup: JSON.stringify({
-                                    inline_keyboard: [
-                                        [{
-                                            text: 'Переглянути баг',
-                                            url: `127.0.0.1:5000/bug/${result.bugId}`
-                                        }]
-                                    ]
+                                    one_time_keyboard: true,
+                                    keyboard: [['/bug']],
+                                    hide_keyboard: true,
                                 })
                             }
 
-                            $.sendMessage(`Ваш баг №${result.bugId} був успішно відправлений! \n`, options);
+                            $.sendMessage(`Ваш баг №${result.bugId} був успішно відправлений! Після модерації баг буде опублікований на сайті \n`, options);
 
 
                             // Post request to clientside server to download pic to static folder

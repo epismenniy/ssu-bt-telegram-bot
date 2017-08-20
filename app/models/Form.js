@@ -75,7 +75,6 @@ const form = {
         }
     },
 
-
     room: {
         q: 'Оберіть аудиторію',
         error: 'Помилка введення',
@@ -130,7 +129,6 @@ const form = {
             callback(false)
         }
     },
-
 
 }
 
