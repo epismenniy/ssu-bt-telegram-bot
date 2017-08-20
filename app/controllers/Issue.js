@@ -82,7 +82,9 @@ class IssueController extends Telegram.TelegramBaseController {
 
                         caption : caption,
 
-                        status : "not_reviewed"
+                        status : "not_reviewed",
+
+                        rating: 0
 
                     });
 
