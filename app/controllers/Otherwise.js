@@ -9,8 +9,7 @@ class OtherwiseController extends Telegram.TelegramBaseController {
         let options = {
             reply_markup: JSON.stringify({
                 one_time_keyboard: true,
-                inline_keyboard: [['/bug']],
-
+                keyboard: [['/bug']],
                 hide_keyboard: true,
             })
         }
