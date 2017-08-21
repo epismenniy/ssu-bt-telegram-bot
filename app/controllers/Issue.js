@@ -12,6 +12,11 @@ let Bug = require('../../schemas/bugSchema');
 const TOKEN = require('../../configs/configs').token;
 const UPLOAD_URL = 'http://localhost:5000/savePic';
 
+//notification constants
+const NOTIFICATION_CHANNEL_MESSAGE = 'https://api.telegram.org/bot' + TOKEN + '/sendMessage';
+const CHAT_ID = '-1001139310479';
+const SINGLE_BUG_URL = 'https://localhost:5000/bug/';
+
 
 class IssueController extends Telegram.TelegramBaseController {
 
@@ -100,7 +105,6 @@ class IssueController extends Telegram.TelegramBaseController {
                                 reply_markup: JSON.stringify({
                                     one_time_keyboard: true,
                                     keyboard: [['/bug']],
-                                    hide_keyboard: true,
                                 })
                             }
 
@@ -118,6 +122,19 @@ class IssueController extends Telegram.TelegramBaseController {
                                         errorMessage();
                                     }
                                 }
+                            );
+
+
+                            request.post(
+                                NOTIFICATION_CHANNEL_MESSAGE,
+                                { json: { chat_id: CHAT_ID, text:  SINGLE_BUG_URL + result.bugId} },
+                                function (error, response, body) {
+                                    if(error && response.statusCode != 200) {
+                                        console.log('client server error');
+                                        errorMessage();
+                                    }
+                                }
+
                             );
                         }
                     })
