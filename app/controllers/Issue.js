@@ -9,13 +9,16 @@ const Form = require('../models/Form');
 const fileHelper = require('../helpers/FileHelper');
 let Bug = require('../../schemas/bugSchema');
 
-const TOKEN = require('../../configs/configs').token;
-const UPLOAD_URL = 'http://localhost:5000/savePic';
+const configs = require('../../configs/configs');
+const url_configs =  require('../../configs/url-configs');
+const chnl_configs =  require('../../configs/channel-configs');
+
+const UPLOAD_URL = url_configs.upload_url();
 
 //notification constants
-const NOTIFICATION_CHANNEL_MESSAGE = 'https://api.telegram.org/bot' + TOKEN + '/sendMessage';
-const CHAT_ID = '-1001139310479';
-const SINGLE_BUG_URL = 'https://localhost:5000/bug/';
+const NOTIFICATION_CHANNEL_MESSAGE = chnl_configs.notification_channel_message;
+const CHAT_ID = chnl_configs.chat_id;
+const SINGLE_BUG_URL = url_configs.single_bug_url();
 
 
 class IssueController extends Telegram.TelegramBaseController {
@@ -25,7 +28,7 @@ class IssueController extends Telegram.TelegramBaseController {
         //bug
         $.runForm(Form, (result) => {
 
-            let urlGetFile = 'https://api.telegram.org/bot' + TOKEN + '/getFile?file_id=';
+            let urlGetFile = url_configs.api_url + configs.token + '/getFile?file_id=';
 
             if(Array.isArray(result.file_id)) {
                 urlGetFile += result.file_id[0];
@@ -52,7 +55,7 @@ class IssueController extends Telegram.TelegramBaseController {
                     result.file_name = file_name_id + file_extension;
                     result.bugId = file_name_id;
 
-                    let download_url = 'https://api.telegram.org/file/bot' + TOKEN + '/photos//' + file_name  + file_extension;
+                    let download_url = 'https://api.telegram.org/file/bot' + configs.token + '/photos//' + file_name  + file_extension;
 
                     //check: is file_id an array
                     let caption = null;
@@ -159,13 +162,13 @@ class IssueController extends Telegram.TelegramBaseController {
                 inline_keyboard: [
                     [{
                         text: 'Перейти на сайт багів',
-                        url: `127.0.0.1:5000/`
+                        url: url_configs.hostname
                     }]
                 ]
             })
         }
 
-        $.sendMessage(`Для того, щоб записати баг, виконайте наступні команди\n 1. Введіть команду /bug\n 2. Відправте фото багу\n 3. Опишіть баг\n 3.Відправте місцезнаходження багу\n Готово!) \n `, options);
+        $.sendMessage(`Для того, щоб записати баг, виконайте наступні команди: \n\n 1. Введіть команду /bug\n 2. Відправте фото багу\n 3. Виберіть корпус\n 3.Виберіть аудиторію\n 4.Опишіть детально\n\n Готово!) \n `, options);
     }
 
     aboutHandler($) {

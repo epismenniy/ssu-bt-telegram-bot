@@ -3,8 +3,8 @@
  */
 
 const configs = {
-    token: 'TOKEN_HERE',
-    db: 'mongodb://localhost/ssu-bug-tracker',
+    token : 'TOKEN_HERE',
+    db : 'mongodb://localhost/ssu-bug-tracker',
 }
 
 module.exports = configs;
