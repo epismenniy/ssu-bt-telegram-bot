@@ -13,8 +13,8 @@ let url_configs = {
     },
 
     single_bug_url : function () {
-       return this.hostname + 'bug/';
-    },
+           return this.hostname + 'bug/';
+        },
 }
 
 module.exports = url_configs;

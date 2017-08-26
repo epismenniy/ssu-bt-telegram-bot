@@ -107,11 +107,31 @@ class IssueController extends Telegram.TelegramBaseController {
                             let options = {
                                 reply_markup: JSON.stringify({
                                     one_time_keyboard: true,
-                                    keyboard: [['/bug']],
+                                    inline_keyboard:
+                                        [
+                                            [{
+                                                text: 'Перейти на сайт багів',
+                                                url: url_configs.hostname
+                                            }]
+                                        ],
+
+                                    /*keyboard: [
+                                        ['/bug']
+                                    ],*/
+                                })
+                            }
+
+                            let keyboard_options = {
+                                reply_markup: JSON.stringify({
+                                    one_time_keyboard: true,
+                                    keyboard: [
+                                     ['/bug']
+                                     ],
                                 })
                             }
 
                             $.sendMessage(`Ваш баг №${result.bugId} був успішно відправлений! Після модерації баг буде опублікований на сайті \n`, options);
+                            $.sendMessage(`Для створення нового багу введіть команду або натисніть кнопку /bug`, keyboard_options);
 
 
                             // Post request to clientside server to download pic to static folder
