@@ -37,11 +37,11 @@ const form = {
 
                 callback(true, photoInfo) //you must pass the result also
                 return
-            } else if (message.document && message.document._thumb !== null) {
+            } /*else if (message.document && message.document._thumb !== null) {
                 //console.log(message.document);
                 callback(true, message.document._fileName) //you must pass the result also
                 return
-            }
+            }*/
             callback(false)
         }
     },
