@@ -14,7 +14,7 @@ class OtherwiseController extends Telegram.TelegramBaseController {
             })
         }
 
-        $.sendMessage("Для початку роботи натисніть кнопку /bug", options)
+        $.sendMessage("Для початку роботи натисніть кнопку /bug\n\n Допомога: /help", options)
     }
 }
 

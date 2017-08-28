@@ -104,6 +104,7 @@ class IssueController extends Telegram.TelegramBaseController {
 
                         } else {
 
+
                             let options = {
                                 reply_markup: JSON.stringify({
                                     one_time_keyboard: true,
@@ -115,23 +116,22 @@ class IssueController extends Telegram.TelegramBaseController {
                                             }]
                                         ],
 
-                                    /*keyboard: [
-                                        ['/bug']
-                                    ],*/
                                 })
                             }
+
 
                             let keyboard_options = {
                                 reply_markup: JSON.stringify({
                                     one_time_keyboard: true,
                                     keyboard: [
-                                     ['/bug']
-                                     ],
+                                        ['/bug']
+                                    ],
                                 })
                             }
 
-                            $.sendMessage(`Ваш баг №${result.bugId} був успішно відправлений! Після модерації баг буде опублікований на сайті \n`, options);
-                            $.sendMessage(`Для створення нового багу введіть команду або натисніть кнопку /bug`, keyboard_options);
+
+                            $.sendMessage(`Ваш баг №${result.bugId} був успішно відправлений! Після модерації баг буде опублікований на сайті \n\n Допомога /help \n`, keyboard_options);
+                            $.sendMessage(`Для створення нового багу введіть команду або натисніть кнопку /bug`, options);
 
 
                             // Post request to clientside server to download pic to static folder
@@ -188,11 +188,11 @@ class IssueController extends Telegram.TelegramBaseController {
             })
         }
 
-        $.sendMessage(`Для того, щоб записати баг, виконайте наступні команди: \n\n 1. Введіть команду /bug\n 2. Відправте фото багу\n 3. Виберіть корпус\n 3.Виберіть аудиторію\n 4.Опишіть детально\n\n Готово!) \n `, options);
+        $.sendMessage(`Для того, щоб записати баг, виконайте наступні команди: \n\n 1. Введіть команду /bug\n 2. Відправте фото багу (а не котиків)\n 3. Виберіть корпус\n 4. Виберіть аудиторію\n 5. Опишіть детально\n\n Готово!) \n\n Зупинити запис багу - /stop `, options);
     }
 
     aboutHandler($) {
-        $.sendMessage('SumyBugTrackerBot записує та відправляє баги на сайт www.sumybugs.com \n  ');
+        $.sendMessage('SSU BugTrackerBot записує та відправляє баги на сайт http://ec2-54-245-171-254.us-west-2.compute.amazonaws.com:5000/ \n  ');
     }
 
     get routes() {

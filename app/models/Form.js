@@ -16,7 +16,7 @@ const form = {
 
     file_id: {
         q: 'Відправте фото багу',
-        error: 'Помилка введення',
+        error: 'Невірний формат фото',
         validator: (message, callback) => {
 
             if (message.text && message.text === '/stop') {
@@ -106,7 +106,7 @@ const form = {
 
     description: {
         q: 'Опишіть проблему',
-        error: 'Вибачте, помилка введення',
+        error: 'Помилка введення',
 
         validator: (message, callback) => {
 
