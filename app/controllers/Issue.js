@@ -137,17 +137,17 @@ class IssueController extends Telegram.TelegramBaseController {
                             );
 
 
-                            // request.post(
-                            //     NOTIFICATION_CHANNEL_MESSAGE,
-                            //     { json: { chat_id: CHAT_ID, text:  SINGLE_BUG_URL + result.bugId} },
-                            //     function (error, response, body) {
-                            //         if(error && response.statusCode != 200) {
-                            //             console.log('client server error');
-                            //             errorMessage();
-                            //         }
-                            //     }
-                            //
-                            // );
+                            request.post(
+                                NOTIFICATION_CHANNEL_MESSAGE,
+                                { json: { chat_id: CHAT_ID, text:  SINGLE_BUG_URL + result.bugId} },
+                                function (error, response, body) {
+                                    if(error && response.statusCode != 200) {
+                                        console.log('client server error');
+                                        errorMessage();
+                                    }
+                                }
+
+                            );
                         }
                     })
 
