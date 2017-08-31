@@ -6,15 +6,7 @@ const Telegram = require('telegram-node-bot');
 
 class OtherwiseController extends Telegram.TelegramBaseController {
     handle($){
-        let options = {
-            reply_markup: JSON.stringify({
-                one_time_keyboard: true,
-                keyboard: [['/bug']],
-                hide_keyboard: true,
-            })
-        }
-
-        $.sendMessage("Для початку роботи натисніть кнопку /bug\n\n Допомога: /help", options)
+              $.sendMessage("Записати баг: /bug\n\n Допомога: /help")
     }
 }
 

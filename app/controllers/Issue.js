@@ -119,19 +119,7 @@ class IssueController extends Telegram.TelegramBaseController {
                                 })
                             }
 
-
-                            let keyboard_options = {
-                                reply_markup: JSON.stringify({
-                                    one_time_keyboard: true,
-                                    keyboard: [
-                                        ['/bug']
-                                    ],
-                                })
-                            }
-
-
-                            $.sendMessage(`Ваш баг №${result.bugId} був успішно відправлений! Після модерації баг буде опублікований на сайті \n\n Допомога /help \n`, keyboard_options);
-                            $.sendMessage(`Для створення нового багу введіть команду або натисніть кнопку /bug`, options);
+                            $.sendMessage(`Ваш баг №${result.bugId} був успішно відправлений! Після модерації баг буде опублікований на сайті \n\n Допомога: /help \n\nЗаписати баг: /bug`, options);
 
 
                             // Post request to clientside server to download pic to static folder
@@ -195,11 +183,28 @@ class IssueController extends Telegram.TelegramBaseController {
         $.sendMessage('SSU BugTrackerBot записує та відправляє баги на сайт http://ec2-54-245-171-254.us-west-2.compute.amazonaws.com:5000/ \n  ');
     }
 
+    startHandler($) {
+
+        let options = {
+            reply_markup: JSON.stringify({
+                inline_keyboard: [
+                    [{
+                        text: 'Перейти на сайт багів',
+                        url: url_configs.hostname
+                    }]
+                ]
+            })
+        }
+
+        $.sendMessage(`Привіт!\n\nДля того, щоб записати баг, виконайте наступні команди: \n\n 1. Введіть команду /bug\n 2. Відправте фото багу (а не котиків)\n 3. Виберіть корпус (або інше)\n 4. Виберіть аудиторію\n 5. Опишіть детально\n\n Готово!) \n\n Зупинити запис багу - /stop `, options);
+    }
+
     get routes() {
         return {
             'bugCommand': 'bugHandler',
             'helpCommand' : 'helpHandler',
-            'aboutCommand' : 'aboutHandler'
+            'aboutCommand' : 'aboutHandler',
+            'startCommand' : 'startHandler'
         };
     }
 

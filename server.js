@@ -17,6 +17,7 @@ tg.router
     .when(new Telegram.TextCommand('/bug', 'bugCommand'), issueCtrl)
     .when(new Telegram.TextCommand('/help', 'helpCommand'), issueCtrl)
     .when(new Telegram.TextCommand('/about', 'aboutCommand'), issueCtrl)
+    .when(new Telegram.TextCommand('/start', 'startCommand'), issueCtrl)
     .otherwise(new OtherwiseController());
 
 function exitHandler(exitCode) {
