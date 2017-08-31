@@ -16,7 +16,7 @@ const form = {
 
     file_id: {
         q: 'Відправте фото багу',
-        error: 'Помилка введення',
+        error: 'Невірний формат фото',
         validator: (message, callback) => {
 
             if (message.text && message.text === '/stop') {
@@ -37,11 +37,11 @@ const form = {
 
                 callback(true, photoInfo) //you must pass the result also
                 return
-            } else if (message.document && message.document._thumb !== null) {
+            } /*else if (message.document && message.document._thumb !== null) {
                 //console.log(message.document);
                 callback(true, message.document._fileName) //you must pass the result also
                 return
-            }
+            }*/
             callback(false)
         }
     },
@@ -106,7 +106,7 @@ const form = {
 
     description: {
         q: 'Опишіть проблему',
-        error: 'Вибачте, помилка введення',
+        error: 'Помилка введення',
 
         validator: (message, callback) => {
 
