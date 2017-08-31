@@ -5,7 +5,7 @@
 
 let url_configs = {
 
-    hostname : 'http://ssubugtracker.com',
+    hostname : 'http://ssubugtracker.com:8080',
     api_url : 'https://api.telegram.org/bot',
 
     upload_url : function () {
