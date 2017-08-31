@@ -6,10 +6,11 @@
 let url_configs = {
 
     hostname : 'http://ssubugtracker.com/',
+    hostnameWithPort : 'http://ssubugtracker.com:8080/',
     api_url : 'https://api.telegram.org/bot',
 
     upload_url : function () {
-        return this.hostname + 'savePic';
+        return this.hostnameWithPort + 'savePic';
     },
 
     single_bug_url : function () {
