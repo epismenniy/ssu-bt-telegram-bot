@@ -180,7 +180,7 @@ class IssueController extends Telegram.TelegramBaseController {
     }
 
     aboutHandler($) {
-        $.sendMessage('SSU BugTrackerBot записує та відправляє баги на сайт http://ec2-54-245-171-254.us-west-2.compute.amazonaws.com:5000/ \n  ');
+        $.sendMessage('SSU BugTrackerBot записує та відправляє баги на сайт '+url_configs.hostname+' \n  ');
     }
 
     startHandler($) {
