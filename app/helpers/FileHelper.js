@@ -30,6 +30,11 @@ const FileHelper = {
         })
     },
 
+    substrDescription: function (str, from, to) {
+        str = str.substring(from, to) + '\n\n';
+        return str;
+    }
+
 }
 
 module.exports = FileHelper;
