@@ -30,8 +30,8 @@ const FileHelper = {
         })
     },
 
-    substrDescription: function (str, from, to) {
-        str = str.substring(from, to) + '\n\n';
+    notificationText: function (str, from, to, bugUrl, bugId,) {
+        str = str.substring(from, to) + '\n\n' + bugUrl + bugId + '... ';
         return str;
     }
 
