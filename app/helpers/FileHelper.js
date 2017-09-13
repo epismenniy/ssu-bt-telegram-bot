@@ -30,6 +30,16 @@ const FileHelper = {
         })
     },
 
+    notificationText: function (str, from, to, bugUrl, bugId) {
+        if(str.length > 50) {
+            str = str.substring(from, to) + '... ' + '\n\n' + bugUrl + bugId;
+        } else {
+            str = str + '\n\n' + bugUrl + bugId;
+        }
+
+        return str;
+    }
+
 }
 
 module.exports = FileHelper;
