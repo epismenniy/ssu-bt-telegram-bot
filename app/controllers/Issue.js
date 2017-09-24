@@ -8,6 +8,7 @@ const Telegram = require('telegram-node-bot');
 const Form = require('../models/Form');
 const fileHelper = require('../helpers/FileHelper');
 let Bug = require('../../schemas/bugSchema');
+let Stats = require('../../schemas/statsSchema');
 
 const configs = require('../../configs/configs');
 const url_configs =  require('../../configs/url-configs');
@@ -186,18 +187,73 @@ class IssueController extends Telegram.TelegramBaseController {
 
     startHandler($) {
 
-        let options = {
-            reply_markup: JSON.stringify({
-                inline_keyboard: [
-                    [{
-                        text: 'Перейти на сайт багів',
-                        url: url_configs.hostname
-                    }]
-                ]
-            })
-        }
+        Stats.findOne({'countsId': 1}, function (err, statsSchema) {
+            if (err) console.log(err);
+            return statsSchema;
+        }).then(
+            statsSchema => {
 
-        $.sendMessage(`Привіт!\n\nДля того, щоб записати баг, виконайте наступні команди: \n\n 1. Введіть команду /bug\n 2. Відправте фото багу (а не котиків)\n 3. Виберіть корпус (або інше)\n 4. Виберіть аудиторію\n 5. Опишіть детально\n\n Готово!) \n\n Зупинити запис багу - /stop `, options);
+                if(statsSchema != null){
+                    let numberUsers = statsSchema.usersCount;
+                    let newNumberUsers = numberUsers + 1;
+
+                    let myquery = { usersCount: numberUsers };
+                    let newvalues = {$set: {usersCount: newNumberUsers} };
+                    Stats.updateOne(myquery, newvalues, function(err, res) {
+                        if (err) throw err;
+                        //console.log("1 document updated");
+
+                        let options = {
+                            reply_markup: JSON.stringify({
+                                inline_keyboard: [
+                                    [{
+                                        text: 'Перейти на сайт багів',
+                                        url: url_configs.hostname
+                                    }]
+                                ]
+                            })
+                        }
+                        $.sendMessage(`Привіт!\n\nДля того, щоб записати баг, виконайте наступні команди: \n\n 1. Введіть команду /bug\n 2. Відправте фото багу (а не котиків)\n 3. Виберіть корпус (або інше)\n 4. Виберіть аудиторію\n 5. Опишіть детально\n\n Готово!) \n\n Зупинити запис багу - /stop `, options);
+
+
+                    });
+
+                } else {
+
+                    //create new
+                    //console.log("object doesn't exist. New schema");
+
+                    let newStats = new Stats({
+                        countsId:1,
+                        usersCount:30
+                    });
+
+                    Stats.createStatistic(newStats, function (error) {
+                        if (error) {
+                            console.log(error);
+                        } else {
+
+                            let options = {
+                                reply_markup: JSON.stringify({
+                                    inline_keyboard: [
+                                        [{
+                                            text: 'Перейти на сайт багів',
+                                            url: url_configs.hostname
+                                        }]
+                                    ]
+                                })
+                            }
+                            $.sendMessage(`Привіт!\n\nДля того, щоб записати баг, виконайте наступні команди: \n\n 1. Введіть команду /bug\n 2. Відправте фото багу (а не котиків)\n 3. Виберіть корпус (або інше)\n 4. Виберіть аудиторію\n 5. Опишіть детально\n\n Готово!) \n\n Зупинити запис багу - /stop `, options);
+
+                        }
+                    });
+                }
+
+            }
+        );
+
+
+
     }
 
     get routes() {
