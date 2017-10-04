@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "dependencies": {
     "mongoose": "4.9.9",
+    "node-emoji": "^1.8.1",
     "request": "^2.81.0",
     "telegram-node-bot": "^4.0.5"
   }

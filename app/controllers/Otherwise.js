@@ -3,10 +3,11 @@
  */
 
 const Telegram = require('telegram-node-bot');
+const emoji = require('node-emoji');
 
 class OtherwiseController extends Telegram.TelegramBaseController {
     handle($){
-              $.sendMessage("Записати баг: /bug\n\n Допомога: /help")
+              $.sendMessage(emoji.get('bomb') + " Записати баг: /bug\n\n " + emoji.get('question') + " Допомога: /help");
     }
 }
 

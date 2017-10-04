@@ -3,8 +3,8 @@
  */
 const request = require("request");
 
-
 const Telegram = require('telegram-node-bot');
+const emoji = require('node-emoji');
 const Form = require('../models/Form');
 const fileHelper = require('../helpers/FileHelper');
 let Bug = require('../../schemas/bugSchema');
@@ -112,7 +112,7 @@ class IssueController extends Telegram.TelegramBaseController {
                                     inline_keyboard:
                                         [
                                             [{
-                                                text: 'Перейти на сайт багів',
+                                                text: 'Перейти на сайт багів  ' + emoji.get('fire'),
                                                 url: url_configs.hostname
                                             }]
                                         ],
@@ -120,7 +120,7 @@ class IssueController extends Telegram.TelegramBaseController {
                                 })
                             }
 
-                            $.sendMessage(`Ваш баг №${result.bugId} був успішно відправлений! Після модерації баг буде опублікований на сайті \n\n Допомога: /help \n\nЗаписати баг: /bug`, options);
+                            $.sendMessage(`Ваш баг №${result.bugId} був успішно відправлений! ` + emoji.get('volcano') + ` Після модерації баг буде опублікований на сайті \n\n `+ emoji.get('question') +` Допомога: /help \n\n ` + emoji.get('bomb') + ` Записати баг: /bug`, options);
 
 
                             // Post request to clientside server to download pic to static folder
@@ -171,21 +171,40 @@ class IssueController extends Telegram.TelegramBaseController {
             reply_markup: JSON.stringify({
                 inline_keyboard: [
                     [{
-                        text: 'Перейти на сайт багів',
+                        text: 'Перейти на сайт багів ' + emoji.get('fire'),
                         url: url_configs.hostname
                     }]
                 ]
             })
         }
 
-        $.sendMessage(`Для того, щоб записати баг, виконайте наступні команди: \n\n 1. Введіть команду /bug\n 2. Відправте фото багу (а не котиків)\n 3. Виберіть корпус\n 4. Виберіть аудиторію\n 5. Опишіть детально\n\n Готово!) \n\n Зупинити запис багу - /stop `, options);
+        $.sendMessage(emoji.get('earth_americas') + ` Для того, щоб записати баг, виконайте наступні команди: \n\n 1. Введіть команду /bug\n 2. Відправте фото багу (а не котиків) `+ emoji.get('cat') +` \n 3. Виберіть корпус\n 4. Виберіть аудиторію\n 5. Опишіть детально\n\n Готово! `+ emoji.get('rocket') +` \n\n `+  emoji.get('black_square_for_stop') + ` Зупинити запис багу - /stop `, options);
     }
 
     aboutHandler($) {
-        $.sendMessage('SSU BugTrackerBot записує та відправляє баги на сайт '+url_configs.hostname+' \n  ');
+        $.sendMessage(emoji.get('helicopter') + ' SSU BugTrackerBot записує та відправляє баги на сайт ' + url_configs.hostname+' \n  ');
+    }
+
+    contactHandler($) {
+        $.sendMessage(emoji.get('palm_tree') + ' Просто напишіть їм: \n\n@evgeniypismenniy ' + emoji.get('evergreen_tree') + '\n@vladhoncharenko '+ emoji.get('rainbow'));
     }
 
     startHandler($) {
+
+        let startMessage = function () {
+            let options = {
+                reply_markup: JSON.stringify({
+                    inline_keyboard: [
+                        [{
+                            text: 'Перейти на сайт багів '+ emoji.get('fire'),
+                            url: url_configs.hostname
+                        }]
+                    ]
+                })
+            }
+            $.sendMessage(`Привіт! `+ emoji.get('hand') + `\n\n ` + emoji.get('earth_americas') + ` Для того, щоб записати баг, виконайте наступні команди: \n\n 1. Введіть команду /bug\n 2. Відправте фото багу (а не котиків) `+ emoji.get('cat') +` \n 3. Виберіть корпус\n 4. Виберіть аудиторію\n 5. Опишіть детально\n\n Готово! `+ emoji.get('rocket') +` \n\n `+  emoji.get('black_square_for_stop') + ` Зупинити запис багу - /stop `, options);
+
+        }
 
         Stats.findOne({'countsId': 1}, function (err, statsSchema) {
             if (err) console.log(err);
@@ -201,27 +220,10 @@ class IssueController extends Telegram.TelegramBaseController {
                     let newvalues = {$set: {usersCount: newNumberUsers} };
                     Stats.updateOne(myquery, newvalues, function(err, res) {
                         if (err) throw err;
-                        //console.log("1 document updated");
-
-                        let options = {
-                            reply_markup: JSON.stringify({
-                                inline_keyboard: [
-                                    [{
-                                        text: 'Перейти на сайт багів',
-                                        url: url_configs.hostname
-                                    }]
-                                ]
-                            })
-                        }
-                        $.sendMessage(`Привіт!\n\nДля того, щоб записати баг, виконайте наступні команди: \n\n 1. Введіть команду /bug\n 2. Відправте фото багу (а не котиків)\n 3. Виберіть корпус (або інше)\n 4. Виберіть аудиторію\n 5. Опишіть детально\n\n Готово!) \n\n Зупинити запис багу - /stop `, options);
-
-
+                        startMessage();
                     });
 
                 } else {
-
-                    //create new
-                    //console.log("object doesn't exist. New schema");
 
                     let newStats = new Stats({
                         countsId:1,
@@ -232,28 +234,13 @@ class IssueController extends Telegram.TelegramBaseController {
                         if (error) {
                             console.log(error);
                         } else {
-
-                            let options = {
-                                reply_markup: JSON.stringify({
-                                    inline_keyboard: [
-                                        [{
-                                            text: 'Перейти на сайт багів',
-                                            url: url_configs.hostname
-                                        }]
-                                    ]
-                                })
-                            }
-                            $.sendMessage(`Привіт!\n\nДля того, щоб записати баг, виконайте наступні команди: \n\n 1. Введіть команду /bug\n 2. Відправте фото багу (а не котиків)\n 3. Виберіть корпус (або інше)\n 4. Виберіть аудиторію\n 5. Опишіть детально\n\n Готово!) \n\n Зупинити запис багу - /stop `, options);
-
+                            startMessage();
                         }
                     });
                 }
 
             }
         );
-
-
-
     }
 
     get routes() {
@@ -261,7 +248,8 @@ class IssueController extends Telegram.TelegramBaseController {
             'bugCommand': 'bugHandler',
             'helpCommand' : 'helpHandler',
             'aboutCommand' : 'aboutHandler',
-            'startCommand' : 'startHandler'
+            'startCommand' : 'startHandler',
+            'contactCommand' : 'contactHandler'
         };
     }
 

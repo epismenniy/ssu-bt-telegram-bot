@@ -4,6 +4,7 @@
 
 const locationsObj = require("../catalogs/locations");
 const fileHelper = require('../helpers/FileHelper');
+const emoji = require('node-emoji');
 
 let locationsArray = Object.keys(locationsObj.locations);
 let locationKeyboards = [];
@@ -15,8 +16,8 @@ fileHelper.keyboardFormat(locationsArray, locationKeyboards);
 const form = {
 
     file_id: {
-        q: 'Відправте фото багу',
-        error: 'Невірний формат фото',
+        q: 'Відправте фото багу ' + emoji.get('camera_with_flash'),
+        error:  emoji.get('x') + ' Невірний формат фото',
         validator: (message, callback) => {
 
             if (message.text && message.text === '/stop') {
@@ -47,9 +48,11 @@ const form = {
     },
 
     building: {
-        q: 'Оберіть корпус',
-        error: 'Помилка введення',
+        q: 'Оберіть корпус ' + emoji.get('factory'),
+        error: emoji.get('x') + ' Помилка введення',
         keyboard: locationKeyboards,
+        resize_keyboard:true,
+        one_time_keyboard:true,
         validator: (message, callback) => {
 
             if (message.text && message.text === '/stop') {
@@ -64,7 +67,6 @@ const form = {
                 } else {
 
                     fileHelper.keyboardFormat(location, roomKeyboards);
-
                     currentLocation = message.text;
                     callback(true, currentLocation)
                 }
@@ -76,9 +78,11 @@ const form = {
     },
 
     room: {
-        q: 'Оберіть аудиторію',
-        error: 'Помилка введення',
+        q: 'Оберіть аудиторію ' + emoji.get('office'),
+        error: emoji.get('x') + ' Помилка введення',
         keyboard: roomKeyboards,
+        resize_keyboard:true,
+        one_time_keyboard:true,
         validator: (message, callback) => {
 
             let room = message.text;
@@ -105,9 +109,8 @@ const form = {
     },
 
     description: {
-        q: 'Опишіть проблему',
-        error: 'Помилка введення',
-
+        q: 'Опишіть проблему ' + emoji.get('point_down'),
+        error: emoji.get('x') + ' Помилка введення',
         validator: (message, callback) => {
 
             if (message.text && message.text === '/stop') {
