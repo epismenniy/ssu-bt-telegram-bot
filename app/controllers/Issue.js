@@ -178,11 +178,11 @@ class IssueController extends Telegram.TelegramBaseController {
             })
         }
 
-        $.sendMessage(emoji.get('earth_americas') + ` Для того, щоб записати баг, виконайте наступні команди: \n\n 1. Введіть команду /bug\n 2. Відправте фото багу (а не котиків) `+ emoji.get('cat') +` \n 3. Виберіть корпус\n 4. Виберіть аудиторію\n 5. Опишіть детально\n\n Готово! `+ emoji.get('rocket') +` \n\n `+  emoji.get('black_square_for_stop') + ` Зупинити запис багу - /stop `, options);
+        $.sendMessage(emoji.get('earth_americas') + ` Для того, щоб анонімно записати баг, виконайте наступні команди: \n\n 1. Введіть команду /bug\n 2. Відправте фото багу (а не котиків) `+ emoji.get('cat') +` \n 3. Виберіть корпус\n 4. Виберіть аудиторію\n 5. Опишіть детально\n\n Готово! `+ emoji.get('rocket') +` \n\n `+  emoji.get('black_square_for_stop') + ` Зупинити запис багу - /stop `, options);
     }
 
     aboutHandler($) {
-        $.sendMessage(emoji.get('helicopter') + ' SSU BugTrackerBot записує та відправляє баги на сайт ' + url_configs.hostname+' \n  ');
+        $.sendMessage(emoji.get('helicopter') + ' SSU BugTrackerBot анонімно записує та відправляє баги на сайт ' + url_configs.hostname+' \n  ');
     }
 
     contactHandler($) {
@@ -202,7 +202,7 @@ class IssueController extends Telegram.TelegramBaseController {
                     ]
                 })
             }
-            $.sendMessage(`Привіт! `+ emoji.get('hand') + `\n\n ` + emoji.get('earth_americas') + ` Для того, щоб записати баг, виконайте наступні команди: \n\n 1. Введіть команду /bug\n 2. Відправте фото багу (а не котиків) `+ emoji.get('cat') +` \n 3. Виберіть корпус\n 4. Виберіть аудиторію\n 5. Опишіть детально\n\n Готово! `+ emoji.get('rocket') +` \n\n `+  emoji.get('black_square_for_stop') + ` Зупинити запис багу - /stop `, options);
+            $.sendMessage(`Привіт! `+ emoji.get('hand') + `\n\n ` + emoji.get('earth_americas') + ` Для того, щоб анонімно записати баг, виконайте наступні команди: \n\n 1. Введіть команду /bug\n 2. Відправте фото багу (а не котиків) `+ emoji.get('cat') +` \n 3. Виберіть корпус\n 4. Виберіть аудиторію\n 5. Опишіть детально\n\n Готово! `+ emoji.get('rocket') +` \n\n `+  emoji.get('black_square_for_stop') + ` Зупинити запис багу - /stop `, options);
 
         }
 
