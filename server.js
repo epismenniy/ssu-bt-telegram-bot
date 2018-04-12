@@ -27,4 +27,6 @@ function exitHandler(exitCode) {
 }
 
 process.on('SIGINT', exitHandler.bind(null, 0));
-process.on('uncaughtException', exitHandler.bind(null, 1));
+process.on('uncaughtException', (err) => {
+  console.log(`Caught exception: ${err}\n`);
+});
