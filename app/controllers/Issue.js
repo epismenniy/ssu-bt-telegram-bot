@@ -305,7 +305,7 @@ class IssueController extends Telegram.TelegramBaseController {
                     ]
                 })
             }
-            $.sendMessage(`Привіт! `+ emoji.get('hand') + `\n\n ` + emoji.get('earth_americas') + ` Щоб прийняти участь у квесті "Bughunters|Ловці багів"  виконайте наступні команди:\n\n 1. Введіть команду /hunters  та виконайте пункти 2-5\n\n Для того, щоб анонімно записати баг або , виконайте наступні команди: \n\n 1. Введіть команду /bug\n 2. Відправте фото багу (а не котиків) `+ emoji.get('cat') +` \n 3. Виберіть корпус\n 4. Виберіть аудиторію\n 5. Опишіть детально\n\n Готово! `+ emoji.get('rocket') +` \n\n `+  emoji.get('black_square_for_stop') + ` Зупинити запис багу - /stop `, options);
+            $.sendMessage(`Привіт! `+ emoji.get('hand') + `\n\n ` + emoji.get('earth_americas') + ` Щоб прийняти участь у квесті "Bughunters|Ловці багів"  виконайте наступні команди:\n\n 1. Введіть команду /hunters  та виконайте пункти 2-5\n\n Для того, щоб анонімно записати баг, виконайте наступні команди: \n\n 1. Введіть команду /bug\n 2. Відправте фото багу (а не котиків) `+ emoji.get('cat') +` \n 3. Виберіть корпус\n 4. Виберіть аудиторію\n 5. Опишіть детально\n\n Готово! `+ emoji.get('rocket') +` \n\n `+  emoji.get('black_square_for_stop') + ` Зупинити запис багу - /stop `, options);
 
         }
 
