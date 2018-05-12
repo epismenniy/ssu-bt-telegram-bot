@@ -124,17 +124,19 @@ class IssueController extends Telegram.TelegramBaseController {
                             );
 
 
-                            // request.post(
-                            //     NOTIFICATION_CHANNEL_MESSAGE,
-                            //     { json: { chat_id: CHAT_ID, text:  fileHelper.notificationText(result.description[0], 0, 50, SINGLE_BUG_URL, result.bugId)} },
-                            //     function (error, response, body) {
-                            //         if(error && response.statusCode != 200) {
-                            //             console.log('client server error');
-                            //             errorMessage();
-                            //         }
-                            //     }
-                            //
-                            // );
+                            if(chnl_configs.allow){
+                                request.post(
+                                    NOTIFICATION_CHANNEL_MESSAGE,
+                                    { json: { chat_id: CHAT_ID, text:  fileHelper.notificationText(result.description[0], 0, 50, SINGLE_BUG_URL, result.bugId)} },
+                                    function (error, response, body) {
+                                        if(error && response.statusCode != 200) {
+                                            console.log('client server error');
+                                            errorMessage();
+                                        }
+                                    }
+
+                                );
+                            }
                         }
                     })
 
@@ -210,6 +212,14 @@ class IssueController extends Telegram.TelegramBaseController {
                         caption : caption,
                         status : "not_reviewed",
                         rating: 0
+                    };
+
+                    let newBug = new Bug(newBugHunter);
+
+                    Bug.createBug(newBug, function (err, bug){
+                        if(err){
+                            console.log('Bug Hunter save error', err);
+                        }
                     };
 
                     request.post({
