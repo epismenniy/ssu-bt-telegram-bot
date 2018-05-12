@@ -1,5 +1,5 @@
 /**
- * Created by epismenniy on 01.08.2017.
+ * Created by epysmennyi on 01.08.2017.
  */
 const locationsObj = {
 

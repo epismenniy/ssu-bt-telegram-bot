@@ -1,5 +1,5 @@
 /**
- * Created by epismenniy on 22.08.2017.
+ * Created by epysmennyi on 22.08.2017.
  */
 
 
@@ -15,6 +15,7 @@ let url_configs = {
     single_bug_url : function () {
            return this.hostname + 'bug/';
         },
+    bughunter_url: 'http://studprofkom.sumdu.edu.ua'
 }
 
 module.exports = url_configs;

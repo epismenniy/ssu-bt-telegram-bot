@@ -14,6 +14,7 @@ const OtherwiseController = require('./app/controllers/Otherwise')
 const issueCtrl = new IssueController();
 
 tg.router
+    .when(new Telegram.TextCommand('/hunters', 'bughuntersCommand'), issueCtrl)
     .when(new Telegram.TextCommand('/bug', 'bugCommand'), issueCtrl)
     .when(new Telegram.TextCommand('/help', 'helpCommand'), issueCtrl)
     .when(new Telegram.TextCommand('/about', 'aboutCommand'), issueCtrl)

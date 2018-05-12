@@ -1,11 +1,11 @@
 /**
- * Created by epismenniy on 01.08.2017.
+ * Created by epysmennyi on 01.08.2017.
  */
 
 let mongoose = require('mongoose');
-let db = require('../configs/configs').db;
+let database = require('../configs/configs').db;
 
-mongoose.connect(db);
+mongoose.connect(database);
 mongoose.Promise = global.Promise;
 
 let BugSchema = mongoose.Schema({

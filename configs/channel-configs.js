@@ -1,5 +1,5 @@
 /**
- * Created by epismenniy on 22.08.2017.
+ * Created by epysmennyi on 22.08.2017.
  */
 
 const configs  = require('./configs');
