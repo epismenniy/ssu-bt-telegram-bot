@@ -6,7 +6,6 @@ const request = require("request");
 const Telegram = require('telegram-node-bot');
 const emoji = require('node-emoji');
 const Form = require('../models/Form');
-const HunterForm = require('../models/HunterForm');
 const fileHelper = require('../helpers/FileHelper');
 let Bug = require('../../schemas/bugSchema');
 
@@ -154,7 +153,7 @@ class IssueController extends Telegram.TelegramBaseController {
 
     bughuntersHandler($) {
         //bughunters
-        $.runForm(HunterForm, (result) => {
+        $.runForm(Form, (result) => {
 
             let urlGetFile = url_configs.api_url + configs.token + '/getFile?file_id=';
 
