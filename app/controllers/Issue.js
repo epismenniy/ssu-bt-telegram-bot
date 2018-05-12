@@ -220,7 +220,7 @@ class IssueController extends Telegram.TelegramBaseController {
                         if(err){
                             console.log('Bug Hunter save error', err);
                         }
-                    };
+                    });
 
                     request.post({
                         url:configs.bughunter,
