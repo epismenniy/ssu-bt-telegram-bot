@@ -262,7 +262,21 @@ class IssueController extends Telegram.TelegramBaseController {
                                 }
                             );
                         }
-                    })
+                    });
+
+                    request.post({
+                        url:configs.bughunterIp,
+                        json: {
+                            "bugId" : result.bugId
+                        }
+
+                    },function (err,res) {
+                        if(err)  {
+                            console.log(err + ' request error');
+                            errorMessage();
+
+                        }
+                    });
 
                 } else {
                     console.log('Error: ' + response.statusCode);

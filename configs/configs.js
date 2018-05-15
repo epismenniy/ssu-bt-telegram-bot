@@ -3,9 +3,10 @@
  */
 
 let configs = {
-    token : 'TOKEN_HERE',
+    token : '418567195:AAH_IsSN2jcEEHNV7wN68a9NdXDOEsSavLA',
     db : 'mongodb://localhost/ssu-bug-tracker',
-    bughunter:'',
+    bughunter:'https://api.mlab.com/api/1/databases/bughunters/collections/bugs?apiKey=gEkx2wdn1mb1LBpKzj-V64-nZj4Qtrx7',
+    bughunterIp:''
 };
 
 module.exports = configs;

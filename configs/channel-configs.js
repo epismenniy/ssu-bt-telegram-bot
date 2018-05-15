@@ -6,7 +6,7 @@ const configs  = require('./configs');
 const url_configs  = require('./url-configs');
 
 const channel_configs = {
-    allow: false,
+    allow: true,
     notification_channel_message : url_configs.api_url + configs.token + '/sendMessage',
     chat_id : '-1001139310479',
 }
