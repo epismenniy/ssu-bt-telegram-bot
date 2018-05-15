@@ -3,9 +3,9 @@
  */
 
 let configs = {
-    token : '418567195:AAH_IsSN2jcEEHNV7wN68a9NdXDOEsSavLA',
+    token : 'TOKEN_HERE',
     db : 'mongodb://localhost/ssu-bug-tracker',
-    bughunter:'https://api.mlab.com/api/1/databases/bughunters/collections/bugs?apiKey=gEkx2wdn1mb1LBpKzj-V64-nZj4Qtrx7',
+    bughunter:'',
     bughunterIp:''
 };
 
