@@ -253,30 +253,29 @@ class IssueController extends Telegram.TelegramBaseController {
                                 UPLOAD_URL,
                                 { json: { src: download_url, filename: result.file_name} },
                                 function (error, response, body) {
-                                    console.log(UPLOAD_URL);
-                                    console.log(response.statusCode);
                                     if (error && response.statusCode != 200) {
                                         console.log('client server error');
                                         errorMessage();
+                                    }else {
+                                        request.post({
+                                            url:configs.bughunterIp,
+                                            json: {
+                                                "bugId" : result.bugId
+                                            }
+
+                                        },function (err,res) {
+                                            if(err)  {
+                                                console.log(err + ' request error');
+                                                errorMessage();
+
+                                            }
+                                        });
                                     }
                                 }
                             );
                         }
                     });
 
-                    request.post({
-                        url:configs.bughunterIp,
-                        json: {
-                            "bugId" : result.bugId
-                        }
-
-                    },function (err,res) {
-                        if(err)  {
-                            console.log(err + ' request error');
-                            errorMessage();
-
-                        }
-                    });
 
                 } else {
                     console.log('Error: ' + response.statusCode);
