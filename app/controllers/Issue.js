@@ -244,35 +244,41 @@ class IssueController extends Telegram.TelegramBaseController {
                                 })
                             }
 
-                            $.sendMessage(`Ваш баг №${result.bugId} був успішно відправлений! ` + emoji.get('volcano') + ` Після модерації баг буде опублікований на сайті \n\n `+ emoji.get('question') +` Допомога: /help \n\n ` + emoji.get('bomb') + ` Записати баг: /hunters`, options);
+                            //$.sendMessage(`Ваш баг №${result.bugId} був успішно відправлений! ` + emoji.get('volcano') + ` Після модерації баг буде опублікований на сайті \n\n `+ emoji.get('question') +` Допомога: /help \n\n ` + emoji.get('bomb') + ` Записати баг: /hunters`, options);
 
 
                             // Post request to clientside server to download pic to static folder
                             request.post(
                                 UPLOAD_URL,
-                                { json: { src: download_url, filename: result.file_name} },
+                                { json: { src: download_url, filename: result.file_name, bugId:{"bugId": newBugHunter.bugId}, ip: configs.bughunterIp} },
                                 function (error, response, body) {
+                                    console.log('message sent')
                                     if (error) {
                                         console.log('client server error');
                                         errorMessage();
                                     }else {
-                                        const bugObj = {
-                                            "bugId" : newBugHunter.bugId
-                                        };
 
-                                        request.post({
-                                            url:configs.bughunterIp,
-                                            json: bugObj
-
-                                        },function (err,res) {
-                                            if(err)  {
-                                                console.log(err + ' request error');
-                                                errorMessage();
-
-                                            } else {
-                                                console.log('response: ')
-                                            }
-                                        });
+                                        $.sendMessage(`Ваш баг №${result.bugId} був успішно відправлений! ` + emoji.get('volcano') + ` Після модерації баг буде опублікований на сайті \n\n `+ emoji.get('question') +` Допомога: /help \n\n ` + emoji.get('bomb') + ` Записати баг: /hunters`, options);
+                                        // const bugObj = {
+                                        //     "bugId" : newBugHunter.bugId
+                                        // };
+                                        //
+                                        // console.log('bugObj:', bugObj)
+                                        // console.log('ip', configs.bughunterIp)
+                                        //
+                                        // request.post({
+                                        //     url:configs.bughunterIp,
+                                        //     json: bugObj
+                                        //
+                                        // },function (err,res) {
+                                        //     if(err)  {
+                                        //         console.log(err + ' request error');
+                                        //        // errorMessage();
+                                        //
+                                        //     } else {
+                                        //         console.log('response: ', res.statusCode )
+                                        //     }
+                                        // });
                                     }
                                 }
                             );
