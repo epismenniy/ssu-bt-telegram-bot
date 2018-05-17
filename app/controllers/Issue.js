@@ -221,7 +221,6 @@ class IssueController extends Telegram.TelegramBaseController {
                             console.log('Bug Hunter save error', err);
                         }
                     });
-
                     request.post({
                         url:configs.bughunter,
                         json:newBugHunter
@@ -253,21 +252,25 @@ class IssueController extends Telegram.TelegramBaseController {
                                 UPLOAD_URL,
                                 { json: { src: download_url, filename: result.file_name} },
                                 function (error, response, body) {
-                                    if (error && response.statusCode != 200) {
+                                    if (error) {
                                         console.log('client server error');
                                         errorMessage();
                                     }else {
+                                        const bugObj = {
+                                            "bugId" : newBugHunter.bugId
+                                        };
+
                                         request.post({
                                             url:configs.bughunterIp,
-                                            json: {
-                                                "bugId" : result.bugId
-                                            }
+                                            json: bugObj
 
                                         },function (err,res) {
                                             if(err)  {
                                                 console.log(err + ' request error');
                                                 errorMessage();
 
+                                            } else {
+                                                console.log('response: ')
                                             }
                                         });
                                     }
